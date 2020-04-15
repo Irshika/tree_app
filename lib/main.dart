@@ -12,6 +12,7 @@ void main() => runApp(
       create: (context) => AuthNotifier(),
     )
   ],
+    child: MyApp(),
   ));
 
 class MyApp extends StatelessWidget {
