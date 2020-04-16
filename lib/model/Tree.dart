@@ -3,9 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Tree {
   String id;
   String name;
-  String category;
+  String description;
+  //String category;
   String image;
-  List subIngredients = [];
+  //List subIngredients = [];
   Timestamp createdAt;
   Timestamp updatedAt;
 
@@ -14,9 +15,10 @@ class Tree {
   Tree.fromMap(Map<String, dynamic> data) {
     id = data['id'];
     name = data['name'];
-    category = data['category'];
+    description = data['description'];
+    //category = data['category'];
     image = data['image'];
-    subIngredients = data['subIngredients'];
+    //subIngredients = data['subIngredients'];
     createdAt = data['createdAt'];
     updatedAt = data['updatedAt'];
   }
@@ -25,9 +27,8 @@ class Tree {
     return {
       'id': id,
       'name': name,
-      'category': category,
+      'description' : description,
       'image': image,
-      'subIngredients': subIngredients,
       'createdAt': createdAt,
       'updatedAt': updatedAt
     };
