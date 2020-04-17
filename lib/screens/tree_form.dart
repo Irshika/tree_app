@@ -4,7 +4,7 @@ import 'package:tree_app/api/tree_api.dart';
 import 'package:tree_app/model/Tree.dart';
 import 'package:tree_app/notifier/tree_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class TreeForm extends StatefulWidget {
@@ -20,11 +20,11 @@ class _TreeFormState extends State<TreeForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List _subingredients = [];
+  //List _subingredients = [];
   Tree _currentTree;
   String _imageUrl;
   File _imageFile;
-  TextEditingController subingredientController = new TextEditingController();
+  //TextEditingController subingredientController = new TextEditingController();
 
   @override
   void initState() {
@@ -37,8 +37,8 @@ class _TreeFormState extends State<TreeForm> {
       _currentTree = Tree();
     }
 
-    _subingredients.addAll(_currentTree.subIngredients);
-    _imageUrl = _currentTree.image;
+    //_imageUrl = _currentTree.image;
+    _imageUrl = treeNotifier.currentTree.image;
   }
 
   _showImage() {
@@ -126,38 +126,26 @@ class _TreeFormState extends State<TreeForm> {
     );
   }
 
-  Widget _buildCategoryField() {
+  Widget _buildDescriptionField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Category'),
-      initialValue: _currentTree.category,
+      decoration: InputDecoration(labelText: 'Description'),
+      initialValue: _currentTree.description,
       keyboardType: TextInputType.text,
       style: TextStyle(fontSize: 20),
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Category is required';
+          return 'Description is required';
         }
 
         if (value.length < 3 || value.length > 20) {
-          return 'Category must be more than 3 and less than 20';
+          return 'Description must be more than 3 and less than 20';
         }
 
         return null;
       },
       onSaved: (String value) {
-        _currentTree.category = value;
+        _currentTree.description = value;
       },
-    );
-  }
-
-  _buildSubingredientField() {
-    return SizedBox(
-      width: 200,
-      child: TextField(
-        controller: subingredientController,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(labelText: 'Subingredient'),
-        style: TextStyle(fontSize: 20),
-      ),
     );
   }
 
@@ -165,15 +153,6 @@ class _TreeFormState extends State<TreeForm> {
     TreeNotifier treeNotifier = Provider.of<TreeNotifier>(context, listen: false);
     treeNotifier.addTree(tree);
     Navigator.pop(context);
-  }
-
-  _addSubingredient(String text) {
-    if (text.isNotEmpty) {
-      setState(() {
-        _subingredients.add(text);
-      });
-      subingredientController.clear();
-    }
   }
 
   _saveTree() {
@@ -186,13 +165,10 @@ class _TreeFormState extends State<TreeForm> {
 
     print('form saved');
 
-    _currentTree.subIngredients = _subingredients;
-
     uploadTreeAndImage(_currentTree, widget.isUpdating, _imageFile, _onTreeUploaded);
 
     print("name: ${_currentTree.name}");
-    print("category: ${_currentTree.category}");
-    print("subingredients: ${_currentTree.subIngredients.toString()}");
+    print("category: ${_currentTree.description}");
     print("_imageFile ${_imageFile.toString()}");
     print("_imageUrl $_imageUrl");
   }
@@ -228,41 +204,7 @@ class _TreeFormState extends State<TreeForm> {
                   )
                 : SizedBox(height: 0),
             _buildNameField(),
-            _buildCategoryField(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                _buildSubingredientField(),
-                ButtonTheme(
-                  child: RaisedButton(
-                    child: Text('Add', style: TextStyle(color: Colors.white)),
-                    onPressed: () => _addSubingredient(subingredientController.text),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 16),
-            GridView.count(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              padding: EdgeInsets.all(8),
-              crossAxisCount: 3,
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4,
-              children: _subingredients
-                  .map(
-                    (ingredient) => Card(
-                      color: Colors.black54,
-                      child: Center(
-                        child: Text(
-                          ingredient,
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            )
+            _buildDescriptionField(),
           ]),
         ),
       ),

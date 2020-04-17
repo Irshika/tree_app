@@ -21,7 +21,11 @@ dependencies:
   firebase_auth: ^0.16.0
   build: ^1.2.2
   cloud_firestore: ^0.13.5
-  image_picker: ^0.6.5
+  image_picker: ^0.6.1+11
+  firebase_storage: ^3.0.8
+  path: ^1.6.4
+  uuid: ^2.0.4
+
   flutter:
     sdk: flutter
 

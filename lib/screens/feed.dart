@@ -57,7 +57,7 @@ class _FeedState extends State<Feed> {
                 fit: BoxFit.fitWidth,
               ),
               title: Text(treeNotifier.treeList[index].name),
-              subtitle: Text(treeNotifier.treeList[index].category),
+              //subtitle: Text(treeNotifier.treeList[index].category),
               onTap: () {
                 treeNotifier.currentTree = treeNotifier.treeList[index];
                 Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {

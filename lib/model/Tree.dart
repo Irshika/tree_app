@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Tree {
@@ -27,7 +28,7 @@ class Tree {
     return {
       'id': id,
       'name': name,
-      'description' : description,
+      'description': description,
       'image': image,
       'createdAt': createdAt,
       'updatedAt': updatedAt

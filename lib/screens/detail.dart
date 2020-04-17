@@ -9,7 +9,7 @@ import 'tree_form.dart';
 class TreeDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TreeNotifier treeNotifier = Provider.of<TreeNotifier>(context);
+    TreeNotifier treeNotifier = Provider.of<TreeNotifier>(context, listen: false);
 
     _onTreeDeleted(Tree tree) {
       Navigator.pop(context);
@@ -41,7 +41,8 @@ class TreeDetail extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Category: ${treeNotifier.currentTree.category}',
+                  //'Category: ${treeNotifier.currentTree.description}',
+                  treeNotifier.currentTree.description,
                   style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
                 ),
                 SizedBox(height: 20),
@@ -49,28 +50,6 @@ class TreeDetail extends StatelessWidget {
                   "Ingredients",
                   style: TextStyle(fontSize: 18, decoration: TextDecoration.underline),
                 ),
-                SizedBox(height: 16),
-                GridView.count(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  padding: EdgeInsets.all(8),
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 4,
-                  children: treeNotifier.currentTree.subIngredients
-                      .map(
-                        (ingredient) => Card(
-                          color: Colors.black54,
-                          child: Center(
-                            child: Text(
-                              ingredient,
-                              style: TextStyle(color: Colors.white, fontSize: 16),
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                )
               ],
             ),
           ),
