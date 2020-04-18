@@ -3,13 +3,14 @@
 import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tree_app/model/Tree.dart';
 import 'package:tree_app/notifier/auth_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tree_app/model/user.dart';
 import 'package:tree_app/notifier/tree_notifier.dart';
 import 'package:path/path.dart' as path;
-//import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid.dart';
 
 login(User user, AuthNotifier authNotifier) async{
   
@@ -84,7 +85,7 @@ getTrees(TreeNotifier treeNotifier) async {
   treeNotifier.treeList = _treeList;
 }
 
-uploadTreeAndImage(Tree tree, bool isUpdating, File localFile, Function treeUploaded) async {
+ uploadTreeAndImage(Tree tree, bool isUpdating, File localFile, Function treeUploaded) async {
   if (localFile != null) {
     print("uploading image");
 
